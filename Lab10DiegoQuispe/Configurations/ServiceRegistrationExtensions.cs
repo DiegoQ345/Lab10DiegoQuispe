@@ -19,7 +19,8 @@ public static class ServiceRegistrationExtensions
         )
     {
         var connectionString =
-            configuration.GetConnectionString("DefaultConnection");
+            configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("DefaultConnection is not configured.");
 
         if (string.IsNullOrWhiteSpace(connectionString))
         {
