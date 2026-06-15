@@ -30,7 +30,9 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    Console.WriteLine("Aplicando migraciones...");
     dbContext.Database.Migrate();
+    Console.WriteLine("Migraciones aplicadas correctamente.");
 }
 
 
