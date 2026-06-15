@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Lab10DiegoQuispe.Application\Lab10DiegoQuispe.Application.csproj" />
+      <ProjectReference Include="..\Lab10DiegoQuispe.Domain\Lab10DiegoQuispe.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.16" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.16" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Lab10DiegoQuispe.Application\Lab10DiegoQuispe.Application.csproj" />
+      <ProjectReference Include="..\Lab10DiegoQuispe.Domain\Lab10DiegoQuispe.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

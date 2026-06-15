@@ -1,0 +1,6 @@
+@Lab10DiegoQuispe.Persistence_HostAddress = http://localhost:5018
+
+GET {{Lab10DiegoQuispe.Persistence_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
