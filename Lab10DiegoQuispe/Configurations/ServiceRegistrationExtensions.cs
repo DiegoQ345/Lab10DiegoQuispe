@@ -1,6 +1,6 @@
 using System.Text;
 using Hangfire;
-using Hangfire.MySql;
+using Hangfire.PostgreSql;
 using Lab10DiegoQuispe.Application;
 using Lab10DiegoQuispe.Application.UseCases.UsersUseCase.Commands;
 using Lab10DiegoQuispe.Infrastructure.Configuration;
@@ -29,10 +29,10 @@ public static class ServiceRegistrationExtensions
 
         services.AddHangfire(config =>
         {
-            config.UseStorage(
-                new MySqlStorage(
-                    connectionString,
-                    new MySqlStorageOptions()));
+            config.UsePostgreSqlStorage(options =>
+            {
+                options.UseNpgsqlConnection(connectionString);
+            });
         });
 
         services.AddHangfireServer();

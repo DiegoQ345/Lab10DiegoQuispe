@@ -24,9 +24,7 @@ public static class InfrastructureServicesExtensions
 		
 
 		services.AddDbContext<AppDbContext>(options =>
-			options.UseMySql(
-				connectionString,
-				ServerVersion.AutoDetect(connectionString)));
+			options.UseNpgsql(connectionString));
 		services.AddScoped<IJwtTokenService, JwtTokenService>();
 		
 		services.AddScoped<IBackgroundJobService, BackgroundJobService>();
