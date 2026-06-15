@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lab10DiegoQuispe.Infrastructure.Migrations
 {
-    /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -20,7 +18,7 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => x.role_id);
+                    table.PrimaryKey("PK_roles", x => x.role_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,7 +33,7 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => x.user_id);
+                    table.PrimaryKey("PK_users", x => x.user_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,13 +44,13 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     description = table.Column<string>(type: "text", nullable: true),
-                    status = table.Column<string>(type: "enum('abierto','en_proceso','cerrado')", nullable: false),
+                    status = table.Column<string>(type: "character varying(20)", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp", nullable: true, defaultValueSql: "CURRENT_TIMESTAMP"),
                     closed_at = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => x.ticket_id);
+                    table.PrimaryKey("PK_tickets", x => x.ticket_id);
                     table.ForeignKey(
                         name: "tickets_ibfk_1",
                         column: x => x.user_id,
@@ -70,7 +68,7 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => new { x.user_id, x.role_id });
+                    table.PrimaryKey("PK_user_roles", x => new { x.user_id, x.role_id });
                     table.ForeignKey(
                         name: "user_roles_ibfk_1",
                         column: x => x.user_id,
@@ -97,7 +95,7 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => x.response_id);
+                    table.PrimaryKey("PK_responses", x => x.response_id);
                     table.ForeignKey(
                         name: "responses_ibfk_1",
                         column: x => x.ticket_id,
@@ -111,62 +109,22 @@ namespace Lab10DiegoQuispe.Infrastructure.Migrations
                         principalColumn: "user_id");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "responder_id",
-                table: "responses",
-                column: "responder_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ticket_id",
-                table: "responses",
-                column: "ticket_id");
-
-            migrationBuilder.CreateIndex(
-                name: "role_name",
-                table: "roles",
-                column: "role_name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "user_id",
-                table: "tickets",
-                column: "user_id");
-
-            migrationBuilder.CreateIndex(
-                name: "role_id",
-                table: "user_roles",
-                column: "role_id");
-
-            migrationBuilder.CreateIndex(
-                name: "email",
-                table: "users",
-                column: "email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "username",
-                table: "users",
-                column: "username",
-                unique: true);
+            migrationBuilder.CreateIndex(name: "IX_responses_responder_id", table: "responses", column: "responder_id");
+            migrationBuilder.CreateIndex(name: "IX_responses_ticket_id", table: "responses", column: "ticket_id");
+            migrationBuilder.CreateIndex(name: "IX_roles_role_name", table: "roles", column: "role_name", unique: true);
+            migrationBuilder.CreateIndex(name: "IX_tickets_user_id", table: "tickets", column: "user_id");
+            migrationBuilder.CreateIndex(name: "IX_user_roles_role_id", table: "user_roles", column: "role_id");
+            migrationBuilder.CreateIndex(name: "IX_users_email", table: "users", column: "email", unique: true);
+            migrationBuilder.CreateIndex(name: "IX_users_username", table: "users", column: "username", unique: true);
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "responses");
-
-            migrationBuilder.DropTable(
-                name: "user_roles");
-
-            migrationBuilder.DropTable(
-                name: "tickets");
-
-            migrationBuilder.DropTable(
-                name: "roles");
-
-            migrationBuilder.DropTable(
-                name: "users");
+            migrationBuilder.DropTable(name: "responses");
+            migrationBuilder.DropTable(name: "user_roles");
+            migrationBuilder.DropTable(name: "tickets");
+            migrationBuilder.DropTable(name: "roles");
+            migrationBuilder.DropTable(name: "users");
         }
     }
 }
